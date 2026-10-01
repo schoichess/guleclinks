@@ -6,53 +6,55 @@
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* Marka */
-  --accent: #1769ff;
+  /* Marka: bordo (renkler referans görselden örneklendi) */
+  --accent: #8a0f2b;
 
-  /* Metin (açık tema, varsayılan) */
-  --c-canvas: #eef1f7;
-  --c-text: #191919;
-  --c-text-muted: #4d535e;
-  --c-arrow: #454b59;
-  --c-icon: #2e3546;
-  --c-focus: #1769ff;
-  --c-scrim: rgb(246 248 252 / 0.55);
-  --c-brand-behance: #1769ff;
+  /* Metin ve ikon (açık tema, varsayılan) */
+  --c-canvas: #f6e3e5;
+  --c-text: #1a0c0f;
+  --c-text-muted: #503d41;
+  --c-arrow: #684f4e;
+  --c-icon: #6f0516;
+  --c-icon-github: #36020b;
+  --c-icon-linkedin: #7e091e;
+  --c-toggle-icon: #3e1b22;
+  --c-focus: #8a0f2b;
+  --c-scrim: rgb(251 236 238 / 0.55);
 
   /* Cam: degrade dolgu + kenar ışığı + speküler parlama + alt bevel */
-  --g-fill-top: rgb(255 255 255 / 0.5);
-  --g-fill-bottom: rgb(255 255 255 / 0.14);
-  --g-fill-solid: rgb(246 248 252 / 0.94);
+  --g-fill-top: rgb(255 250 250 / 0.56);
+  --g-fill-bottom: rgb(255 238 241 / 0.24);
+  --g-fill-solid: rgb(250 238 240 / 0.94);
   --g-rim-hi: rgb(255 255 255 / 0.95);
   --g-rim-lo: rgb(255 255 255 / 0.3);
   --g-spec: rgb(255 255 255 / 0.6);
-  --g-bevel: rgb(40 70 140 / 0.16);
+  --g-bevel: rgb(120 30 50 / 0.16);
   --g-hover: rgb(255 255 255 / 0.32);
   --g-glare: rgb(255 255 255 / 0.55);
-  --c-shadow: rgb(36 58 100 / 0.08);
-  --c-shadow-strong: rgb(36 58 100 / 0.22);
+  --c-shadow: rgb(80 20 35 / 0.08);
+  --c-shadow-strong: rgb(80 20 35 / 0.22);
 
-  /* Vurgulu (iletişim) cam */
-  --a-fill-top: rgb(206 224 255 / 0.78);
-  --a-fill-bottom: rgb(168 200 255 / 0.5);
-  --a-rim-hi: rgb(238 245 255 / 1);
-  --a-rim-lo: rgb(140 185 255 / 0.55);
-  --a-glow: rgb(23 105 255 / 0.45);
-  --c-accent-ink: #0a50cc;
-  --c-accent-icon: #1769ff;
+  /* Vurgulu (iletişim) cam: pembe */
+  --a-fill-top: rgb(242 204 212 / 0.78);
+  --a-fill-bottom: rgb(216 146 163 / 0.5);
+  --a-rim-hi: rgb(255 242 245 / 1);
+  --a-rim-lo: rgb(205 115 136 / 0.5);
+  --a-glow: rgb(138 15 43 / 0.35);
+  --c-accent-ink: #710110;
+  --c-accent-icon: #74081c;
 
-  /* Avatar ve tema düğmesi */
+  /* Avatar */
   --c-avatar-shine: rgb(255 255 255 / 0.85);
-  --c-avatar-tint: rgb(23 105 255 / 0.32);
-  --c-avatar-ink: #283044;
+  --c-avatar-tint: rgb(160 30 60 / 0.28);
+  --c-avatar-ink: #200b0b;
 
   /* "Yakında" etiketi (adres girilmemiş kart) */
   --c-chip: rgb(255 255 255 / 0.55);
   --c-chip-rim: rgb(255 255 255 / 0.9);
-  --c-chip-text: #3f4550;
+  --c-chip-text: #4a3236;
 
   --glass-blur: 16px;
-  --glass-saturate: 180%;
+  --glass-saturate: 115%;
   --glass-brightness: 1;
   --rim-width: 1.5px;
 
@@ -95,44 +97,46 @@
 }
 
 :root[data-theme="dark"] {
-  --c-canvas: #060b19;
-  --c-text: #f3f6fb;
-  --c-text-muted: #bcc5d6;
-  --c-arrow: #c9d2e3;
-  --c-icon: #e6ecf7;
-  --c-focus: #6ea2ff;
-  --c-scrim: rgb(7 12 28 / 0.55);
-  --c-brand-behance: #f3f6fb;
+  --c-canvas: #12050a;
+  --c-text: #f9eef0;
+  --c-text-muted: #d5bfc4;
+  --c-arrow: #e2ccd1;
+  --c-icon: #ffb3c1;
+  --c-icon-github: #f9eef0;
+  --c-icon-linkedin: #d9566f;
+  --c-toggle-icon: #ffd6de;
+  --c-focus: #ff8fa6;
+  --c-scrim: rgb(20 6 12 / 0.55);
 
-  --g-fill-top: rgb(52 70 122 / 0.36);
-  --g-fill-bottom: rgb(10 18 42 / 0.34);
-  --g-fill-solid: rgb(16 24 46 / 0.94);
-  --g-rim-hi: rgb(205 222 255 / 0.5);
-  --g-rim-lo: rgb(205 222 255 / 0.08);
-  --g-spec: rgb(190 212 255 / 0.14);
-  --g-bevel: rgb(0 0 0 / 0.28);
+  --g-fill-top: rgb(112 34 56 / 0.36);
+  --g-fill-bottom: rgb(30 8 16 / 0.34);
+  --g-fill-solid: rgb(36 12 20 / 0.94);
+  --g-rim-hi: rgb(255 205 215 / 0.48);
+  --g-rim-lo: rgb(255 205 215 / 0.08);
+  --g-spec: rgb(255 200 212 / 0.14);
+  --g-bevel: rgb(0 0 0 / 0.3);
   --g-hover: rgb(255 255 255 / 0.07);
-  --g-glare: rgb(170 200 255 / 0.2);
-  --c-shadow: rgb(0 3 14 / 0.3);
-  --c-shadow-strong: rgb(0 3 14 / 0.55);
+  --g-glare: rgb(255 190 205 / 0.2);
+  --c-shadow: rgb(10 0 4 / 0.3);
+  --c-shadow-strong: rgb(10 0 4 / 0.55);
 
-  --a-fill-top: rgb(45 115 255 / 0.4);
-  --a-fill-bottom: rgb(23 105 255 / 0.16);
-  --a-rim-hi: rgb(165 200 255 / 0.75);
-  --a-rim-lo: rgb(120 170 255 / 0.18);
-  --a-glow: rgb(23 105 255 / 0.45);
-  --c-accent-ink: #d0e1ff;
-  --c-accent-icon: #7eadff;
+  --a-fill-top: rgb(170 34 66 / 0.42);
+  --a-fill-bottom: rgb(110 15 40 / 0.2);
+  --a-rim-hi: rgb(255 175 195 / 0.72);
+  --a-rim-lo: rgb(225 115 145 / 0.18);
+  --a-glow: rgb(180 20 60 / 0.45);
+  --c-accent-ink: #ffd3dc;
+  --c-accent-icon: #ff9fb4;
 
-  --c-avatar-shine: rgb(200 220 255 / 0.2);
-  --c-avatar-tint: rgb(23 105 255 / 0.5);
-  --c-avatar-ink: #eef3ff;
+  --c-avatar-shine: rgb(255 210 220 / 0.18);
+  --c-avatar-tint: rgb(170 25 60 / 0.5);
+  --c-avatar-ink: #fff0f3;
 
   --c-chip: rgb(255 255 255 / 0.08);
-  --c-chip-rim: rgb(200 218 255 / 0.2);
-  --c-chip-text: #dfe5f1;
+  --c-chip-rim: rgb(255 210 220 / 0.2);
+  --c-chip-text: #f5dfe4;
 
-  /* Koyu camda arkadaki parlak mavi biraz kısılır ki beyaz yazı okunur kalsın */
+  /* Koyu camda arkadaki parlak bordo biraz kısılır ki açık yazı okunur kalsın */
   --glass-saturate: 140%;
   --glass-brightness: 0.72;
 
@@ -170,7 +174,7 @@
 }
 
 @media (min-width: 480px) and (min-height: 1000px) {
-  :root { --avatar-size: clamp(88px, 15vh, 184px); }
+  :root { --avatar-size: clamp(88px, 17.5vh, 184px); }
 }
 
 @theme inline {
@@ -200,7 +204,7 @@ body {
 }
 
 ::selection {
-  background: rgb(23 105 255 / 0.22);
+  background: rgb(138 15 43 / 0.2);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -229,7 +233,7 @@ body {
 
 /*
  * Dikey çizim (4:5): dar telefonda yatayda hafifçe sıkışır ki kenarlardaki
- * mavi kütleler görünsün. Yatay ekranda ayrı yatay çizim "cover" ile oturur.
+ * bordo kütleler görünsün. Yatay ekranda ayrı yatay çizim "cover" ile oturur.
  */
 .scene-img {
   position: absolute;
@@ -394,7 +398,7 @@ body {
   width: var(--toggle-width);
   height: var(--toggle-height);
   border-radius: 999px;
-  color: var(--c-icon);
+  color: var(--c-toggle-icon);
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -439,7 +443,7 @@ body {
   pointer-events: none;
 }
 
-/* Cam küre avatar: sol üstte parlama, altta ve sağda mavi kırılma */
+/* Cam küre avatar: sol üstte parlama, altta ve sağda bordo kırılma */
 .avatar {
   display: grid;
   place-items: center;
@@ -578,11 +582,12 @@ a.card[href]:focus-visible .card-hover { opacity: 1; }
   height: calc(var(--card-icon-box) * var(--icon-scale, 0.9));
 }
 
-.card-icon[data-icon="behance"] { --icon-scale: 1.02; color: var(--c-brand-behance); }
-.card-icon[data-icon="github"] { --icon-scale: 0.96; color: var(--c-text); }
+/* İkonlar referanstaki gibi tek renk bordo */
+.card-icon[data-icon="behance"] { --icon-scale: 1.02; }
+.card-icon[data-icon="github"] { --icon-scale: 0.96; color: var(--c-icon-github); }
 .card-icon[data-icon="linkedin"],
 .card-icon[data-icon="instagram"] { --icon-scale: 0.88; }
-.card-icon[data-icon="linkedin"] { color: #0a66c2; }
+.card-icon[data-icon="linkedin"] { color: var(--c-icon-linkedin); }
 .card-icon[data-icon="mail"] { color: var(--c-accent-icon); }
 
 .card-label {
@@ -628,7 +633,7 @@ a.card[href]:focus-visible .card-hover { opacity: 1; }
   box-shadow: inset 0 0 0 1px var(--c-chip-rim);
 }
 
-/* Vurgulu iletişim kartı: mavi tonlu cam */
+/* Vurgulu iletişim kartı: pembe tonlu cam */
 .card--accent {
   color: var(--c-accent-ink);
   background-image: linear-gradient(165deg, var(--a-fill-top), var(--a-fill-bottom));

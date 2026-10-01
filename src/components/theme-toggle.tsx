@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
-import { Moon, Sun } from "lucide-react";
+import { useEffect, useId, useSyncExternalStore } from "react";
+import { Sun } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { THEME_COLORS, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
@@ -29,6 +29,23 @@ const getSnapshot = (): Theme =>
   document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 
 const getServerSnapshot = (): Theme => "light";
+
+/**
+ * Referanstaki dolgulu ince hilal. Lucide'de dolgulu hilal yok (dolgulu "moon"
+ * ısırılmış bir top gibi görünüyor), bu yüzden iki daireyle çiziliyor.
+ */
+function CrescentIcon({ className }: { className?: string }) {
+  const maskId = useId();
+  return (
+    <svg className={className} viewBox="0 0 24 24" width={30} height={30} aria-hidden="true" focusable="false">
+      <mask id={maskId}>
+        <rect width="24" height="24" fill="#fff" />
+        <circle cx="17.6" cy="6.6" r="8.6" fill="#000" />
+      </mask>
+      <circle cx="12" cy="12" r="10.4" fill="currentColor" mask={`url(#${maskId})`} />
+    </svg>
+  );
+}
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
@@ -77,7 +94,7 @@ export function ThemeToggle() {
         }
       }}
     >
-      <Moon className="theme-icon theme-icon--moon" size={22} strokeWidth={2} aria-hidden="true" />
+      <CrescentIcon className="theme-icon theme-icon--moon" />
       <Sun className="theme-icon theme-icon--sun" size={21} strokeWidth={2} aria-hidden="true" />
     </motion.button>
   );
