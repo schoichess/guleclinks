@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+build
+coverage
+.claude
+.env*
+*.tsbuildinfo
+.DS_Store
