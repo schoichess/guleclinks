@@ -45,7 +45,7 @@ export const profile: Profile = {
   links: [
     {
       id: "website",
-      label: "Web sitesi",
+      label: "Güleç Yazılım",
       url: "https://gulecdev.vercel.app/tr",
       icon: "website",
     },
