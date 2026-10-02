@@ -6,6 +6,9 @@
  * otomatik olarak etkin bir bağlantıya dönüşür.
  */
 
+import type { StaticImageData } from "next/image";
+import avatarPhoto from "@/assets/avatar.webp";
+
 export type LinkIcon =
   | "website"
   | "behance"
@@ -25,6 +28,8 @@ export type ProfileLink = {
 export type Profile = {
   name: string;
   initials: string;
+  /** Avatar fotoğrafı; null ise baş harfler gösterilir */
+  photo: StaticImageData | null;
   tagline: string;
   location: string;
   links: ProfileLink[];
@@ -34,6 +39,7 @@ export type Profile = {
 export const profile: Profile = {
   name: "Umut Güleç",
   initials: "UG",
+  photo: avatarPhoto,
   tagline: "Tasarım & Yazılım",
   location: "İzmir, Türkiye",
   links: [

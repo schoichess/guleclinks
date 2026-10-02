@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { Globe, Mail } from "lucide-react";
 import type { LinkIcon, ProfileLink } from "@/config/profile";
 import { BehanceIcon, GitHubIcon, InstagramIcon, LinkedInIcon } from "./brand-icons";
-import { InteractiveCard } from "./interactive-card";
+import { LiquidGlassCard } from "./glass/liquid-glass-card";
 
 function CardIcon({ name }: { name: LinkIcon }) {
   switch (name) {
@@ -29,7 +29,6 @@ type Props = {
 };
 
 export function LinkCard({ link, order, accent = false }: Props) {
-  const className = `card glass enter${accent ? " card--accent" : ""}`;
   const style = { "--i": order } as CSSProperties;
 
   const content = (
@@ -44,7 +43,12 @@ export function LinkCard({ link, order, accent = false }: Props) {
   if (!link.url) {
     // Adres girilmemiş: yer tutucu bağlantı, devre dışı olarak duyurulur.
     return (
-      <a role="link" aria-disabled="true" className={className} style={style}>
+      <a
+        role="link"
+        aria-disabled="true"
+        className={`card glass enter${accent ? " card--accent" : ""}`}
+        style={style}
+      >
         {content}
         <span className="card-soon">Yakında</span>
       </a>
@@ -52,8 +56,8 @@ export function LinkCard({ link, order, accent = false }: Props) {
   }
 
   return (
-    <InteractiveCard href={link.url} className={className} style={style}>
+    <LiquidGlassCard href={link.url} accent={accent} className="enter" style={style}>
       {content}
-    </InteractiveCard>
+    </LiquidGlassCard>
   );
 }

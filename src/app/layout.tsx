@@ -1,17 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { profile } from "@/config/profile";
 import { THEME_COLORS, themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
-// Apple cihazlarında sistem fontu (SF Pro) kullanılır; Inter yalnızca
-// diğer platformlarda gerektiğinde indirilir (preload kapalı).
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  preload: false,
-});
+// Yazı tipi: yalnızca sistem fontları (-apple-system, BlinkMacSystemFont,
+// "Segoe UI"). Apple cihazlarında San Francisco kullanılır; harici font dosyası yok.
 
 export const metadata: Metadata = {
   title: `${profile.name} — ${profile.tagline}`,
@@ -25,26 +18,22 @@ export const viewport: Viewport = {
   themeColor: THEME_COLORS.light,
 };
 
+// Arka plan katmanları ilk boyamaya yetişsin (ekran yönüne göre)
+const SCENE_PRELOADS = [
+  { href: "/scene/landscape-light-back.webp", media: "(min-aspect-ratio: 1/1)" },
+  { href: "/scene/landscape-light-front.webp", media: "(min-aspect-ratio: 1/1)" },
+  { href: "/scene/portrait-light-back.webp", media: "(max-aspect-ratio: 1/1)" },
+  { href: "/scene/portrait-light-front.webp", media: "(max-aspect-ratio: 1/1)" },
+];
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" data-theme="light" className={inter.variable} suppressHydrationWarning>
+    <html lang="tr" data-theme="light" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        {/* Arka plan görseli ilk boyamaya yetişsin */}
-        <link
-          rel="preload"
-          as="image"
-          href="/scene/landscape-light.webp"
-          media="(min-aspect-ratio: 1/1)"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/scene/portrait-light.webp"
-          media="(max-aspect-ratio: 1/1)"
-          fetchPriority="high"
-        />
+        {SCENE_PRELOADS.map(({ href, media }) => (
+          <link key={href} rel="preload" as="image" href={href} media={media} fetchPriority="high" />
+        ))}
         <noscript>
           <style>{".theme-toggle{visibility:hidden}"}</style>
         </noscript>

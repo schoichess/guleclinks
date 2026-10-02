@@ -4,8 +4,8 @@ export const THEME_STORAGE_KEY = "theme";
 
 /** Tarayıcı arayüzü (adres çubuğu) renkleri */
 export const THEME_COLORS: Record<Theme, string> = {
-  light: "#f6e3e5",
-  dark: "#12050a",
+  light: "#F7FAFD", // Frost White
+  dark: "#2D3A4D", // Deep Cool Gray
 };
 
 /**

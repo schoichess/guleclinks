@@ -14,6 +14,7 @@ import {
   useReducedMotion,
   useSpring,
 } from "motion/react";
+import { sceneMotion } from "@/config/motion";
 
 /**
  * Arka plan katmanlarının tek hareket döngüsü: yavaş süzülme + imleç paralaksı.
@@ -34,7 +35,7 @@ export type Drift = {
   /** Süzülme genliği (px) */
   ampX: number;
   ampY: number;
-  /** Tam döngü süresi (sn); yarım döngü 19–24 sn */
+  /** Tam döngü süresi (sn), 24–40 sn */
   periodX: number;
   periodY: number;
   phase: number;
@@ -45,14 +46,19 @@ type Register = (el: HTMLElement, drift: Drift) => () => void;
 const SceneContext = createContext<Register | null>(null);
 
 const FINE_POINTER = "(hover: hover) and (pointer: fine)";
-const IDLE_FRAME_MS = 50;
-const FOLLOW_FRAME_MS = 33;
+const {
+  idleFrameMs: IDLE_FRAME_MS,
+  followFrameMs: FOLLOW_FRAME_MS,
+  touchDriftScale: TOUCH_DRIFT_SCALE,
+  touchIdleFrameMs: TOUCH_IDLE_FRAME_MS,
+} = sceneMotion;
 const TAU = Math.PI * 2;
 
 export function SceneMotion({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
   const layers = useRef(new Map<HTMLElement, Drift>());
   const lastWrite = useRef(-Infinity);
+  const finePointer = useRef(true);
 
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -101,6 +107,7 @@ export function SceneMotion({ children }: { children: ReactNode }) {
 
     const attach = () => {
       detach();
+      finePointer.current = query.matches;
       if (!query.matches) {
         onLeave();
         return;
@@ -122,17 +129,22 @@ export function SceneMotion({ children }: { children: ReactNode }) {
   }, [reduce, rawX, rawY]);
 
   useAnimationFrame((time) => {
-    if (reduce !== false) return;
+    // Hareket azaltma tercihinde ya da görünmeyen sekmede hiçbir şey yazılmaz
+    // (tarayıcı gizli sekmede kare döngüsünü zaten durdurur).
+    if (reduce !== false || document.hidden) return;
+    const fine = finePointer.current;
     const following = x.isAnimating() || y.isAnimating();
-    if (time - lastWrite.current < (following ? FOLLOW_FRAME_MS : IDLE_FRAME_MS)) return;
+    const interval = following ? FOLLOW_FRAME_MS : fine ? IDLE_FRAME_MS : TOUCH_IDLE_FRAME_MS;
+    if (time - lastWrite.current < interval) return;
     lastWrite.current = time;
 
     const t = time / 1000;
     const px = x.get();
     const py = y.get();
+    const scale = fine ? 1 : TOUCH_DRIFT_SCALE;
     layers.current.forEach((d, el) => {
-      const dx = d.ampX * Math.sin((t / d.periodX) * TAU + d.phase) - px * d.depth;
-      const dy = d.ampY * Math.sin((t / d.periodY) * TAU + d.phase * 1.7) - py * d.depth;
+      const dx = scale * d.ampX * Math.sin((t / d.periodX) * TAU + d.phase) - px * d.depth;
+      const dy = scale * d.ampY * Math.sin((t / d.periodY) * TAU + d.phase * 1.7) - py * d.depth;
       el.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`;
     });
   });

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { profile } from "@/config/profile";
 import { AmbientScene } from "@/components/ambient-scene";
@@ -24,12 +25,25 @@ export default function Home() {
 
           <header className="profile mt-(--sp-toggle-avatar) flex flex-col items-center text-center">
             <div className="avatar glass enter" style={order(0)} aria-hidden="true">
-              <span className="avatar-initials">{profile.initials}</span>
+              {profile.photo ? (
+                <>
+                  <Image
+                    className="avatar-photo"
+                    src={profile.photo}
+                    alt=""
+                    priority
+                    sizes="(min-width: 480px) 184px, 140px"
+                  />
+                  <span className="avatar-sheen" />
+                </>
+              ) : (
+                <span className="avatar-initials">{profile.initials}</span>
+              )}
             </div>
             <h1 className="profile-name enter mt-(--sp-avatar-title)" style={order(1)}>
               {profile.name}
             </h1>
-            <p className="profile-tagline enter mt-(--sp-title-tagline)" style={order(2)}>
+            <p className="profile-tagline scrimmed enter mt-(--sp-title-tagline)" style={order(2)}>
               {profile.tagline}
             </p>
           </header>
@@ -49,7 +63,7 @@ export default function Home() {
           </div>
 
           <footer className="mt-(--sp-contact-location) flex justify-center">
-            <p className="location enter" style={order(CONTACT_ORDER)}>
+            <p className="location scrimmed enter" style={order(CONTACT_ORDER)}>
               <MapPin className="location-pin" size={17} strokeWidth={1.5} aria-hidden="true" />
               {profile.location}
             </p>

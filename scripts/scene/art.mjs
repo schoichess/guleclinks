@@ -3,30 +3,44 @@
  *
  * Çalışma anında SVG filtresi çizdirmek pahalı olduğu için bu çizim
  * `npm run scene` ile önceden WebP'ye dönüştürülür (public/scene/*.webp).
- * Katmanlar: zemin → saten kıvrımlar → bordo kütleler (iç parlaklık bandıyla)
- * → beyaz kenar ışıkları. Renkler ve yerleşim referans görselden alındı.
+ * Katmanlar: zemin → saten kıvrımlar → açık mavi kütleler (iç parlaklık bandıyla)
+ * → beyaz kenar ışıkları. Yerleşim referans görselden alındı.
+ *
+ * Yalnızca GULEC Light Blue Palette renkleri kullanılır; ara tonlar bu
+ * renklerin opaklığıyla elde edilir (src/app/globals.css ile aynı değerler).
  */
 
-// Bordo / pembe-beyaz ipek paleti
-const PALETTE = {
-  massCore: "#4a0011",
-  massDeep: "#5e0117",
-  massMid: "#74081f",
-  massEdge: "#962240",
-  massRim: "#c96079",
-  gloss: "#cf5670",
-  discCore: "#d98597",
-  discMid: "#a8304e",
-  bottomRight: "#b4475f",
-  bottomRightFade: "#f2c9d0",
-  hazeLight: "#f0c4cc",
-  hazeMid: "#c9637a",
-  hazeDeep: "#7a0a24",
-  hazeSoft: "#c26a7f",
-  silkShade: "#a0606c",
+const GULEC = {
+  skyCore: "#5FA8FF",
+  softBlue: "#8CC4FF",
+  iceBlue: "#CFE8FF",
+  frostWhite: "#F7FAFD",
+  pureWhite: "#FFFFFF",
+  silverGray: "#C7D2E0",
+  slateGray: "#7F91A8",
+  steelBlueGray: "#5D6F86",
+  deepCoolGray: "#2D3A4D",
 };
 
-// Mobil / dikey (4:5). Bordo "diller" kartların sol üst ve sağ orta kenarlarının altına girer.
+const PALETTE = {
+  massCore: GULEC.skyCore,
+  massDeep: GULEC.skyCore,
+  massMid: GULEC.softBlue,
+  massEdge: GULEC.softBlue,
+  massRim: GULEC.iceBlue,
+  gloss: GULEC.iceBlue,
+  discCore: GULEC.iceBlue,
+  discMid: GULEC.softBlue,
+  bottomRight: GULEC.softBlue,
+  bottomRightFade: GULEC.iceBlue,
+  hazeLight: GULEC.iceBlue,
+  hazeMid: GULEC.softBlue,
+  hazeDeep: GULEC.skyCore,
+  hazeSoft: GULEC.softBlue,
+  silkShade: GULEC.slateGray,
+};
+
+// Mobil / dikey (4:5). Mavi "diller" kartların sol üst ve sağ orta kenarlarının altına girer.
 const PORTRAIT = {
   width: 1000,
   height: 1250,
@@ -110,25 +124,31 @@ const LANDSCAPE = {
 };
 
 const THEMES = {
+  // Frost White zemin; altta Ice Blue %40 (Frost White üzerinde = #E7F3FE)
   light: {
-    base: ["#fbe8ea", "#f2d8da", "#e6c2c6"],
-    glow: { color: "#fff7f8", opacity: 0.9 },
+    base: [GULEC.pureWhite, GULEC.frostWhite, "#E7F3FE"],
+    glow: { color: GULEC.pureWhite, opacity: 0.9 },
     silk: 1,
     mass: 1,
     light: 1,
   },
+  // Deep Cool Gray zemin, aynı açık mavi vurgular daha sakin
   dark: {
-    base: ["#1c0810", "#12050a", "#090206"],
-    glow: { color: "#6a1a30", opacity: 0.34 },
-    silk: 0.07,
-    mass: 0.85,
-    light: 0.3,
+    base: [GULEC.deepCoolGray, GULEC.deepCoolGray, GULEC.deepCoolGray],
+    glow: { color: GULEC.skyCore, opacity: 0.16 },
+    silk: 0.05,
+    mass: 0.5,
+    light: 0.26,
   },
 };
 
 export const VARIANTS = { portrait: PORTRAIT, landscape: LANDSCAPE };
 
-export function buildScene(variantName, themeName, outWidth) {
+/**
+ * @param part "back"  → zemin + saten kıvrımlar (opak, yavaş katman)
+ *             "front" → kütleler + kenar ışıkları (saydam, hızlı katman)
+ */
+export function buildScene(variantName, themeName, outWidth, part = "back") {
   const v = VARIANTS[variantName];
   const t = THEMES[themeName];
   const P = PALETTE;
@@ -185,6 +205,7 @@ export function buildScene(variantName, themeName, outWidth) {
     <filter id="light-edge" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
   </defs>
 
+  ${part === "back" ? `
   <rect width="${v.width}" height="${v.height}" fill="url(#base)"/>
   <rect width="${v.width}" height="${v.height}" fill="url(#base-glow)"/>
 
@@ -195,8 +216,7 @@ export function buildScene(variantName, themeName, outWidth) {
     <g filter="url(#silk-shine)" stroke="#fff" stroke-opacity="0.9">
       ${v.folds.map((f) => `<path d="${f.d}" stroke-width="${f.w * 0.6}"/>`).join("")}
     </g>
-  </g>
-
+  </g>` : `
   <g opacity="${t.mass}">
     <g filter="url(#mass-haze)">
       ${v.hazes.map((h) => `<ellipse cx="${h.cx}" cy="${h.cy}" rx="${h.rx}" ry="${h.ry}" fill="${P[h.color]}" fill-opacity="${h.opacity}"/>`).join("")}
@@ -227,6 +247,6 @@ export function buildScene(variantName, themeName, outWidth) {
       <path d="${v.ribbon}" stroke-width="1.6" stroke-opacity="0.7"/>
       <path d="${v.bottomRight.edge}" stroke-width="2.2" stroke-opacity="0.8"/>
     </g>
-  </g>
+  </g>`}
 </svg>`;
 }

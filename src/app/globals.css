@@ -1,77 +1,93 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   Tasarım değişkenleri
+   Tasarım değişkenleri — GULEC Light Blue Palette
+   Palet HEX değerleri birebir; bileşenler yalnızca semantik değişkenleri
+   kullanır. Saydamlık, gölge ve degradeler color-mix() ile paletten türetilir.
    Tema geçişi View Transitions ile tek bir GPU çapraz geçişidir (aşağıda).
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* Marka: bordo (renkler referans görselden örneklendi) */
-  --accent: #8a0f2b;
+  /* Palet */
+  --sky-core: #5FA8FF;
+  --soft-blue: #8CC4FF;
+  --ice-blue: #CFE8FF;
+  --frost-white: #F7FAFD;
+  --pure-white: #FFFFFF;
+  --silver-gray: #C7D2E0;
+  --slate-gray: #7F91A8;
+  --steel-blue-gray: #5D6F86;
+  --deep-cool-gray: #2D3A4D;
 
-  /* Metin ve ikon (açık tema, varsayılan) */
-  --c-canvas: #f6e3e5;
-  --c-text: #1a0c0f;
-  --c-text-muted: #503d41;
-  --c-arrow: #684f4e;
-  --c-icon: #6f0516;
-  --c-icon-github: #36020b;
-  --c-icon-linkedin: #7e091e;
-  --c-toggle-icon: #3e1b22;
-  --c-focus: #8a0f2b;
-  --c-scrim: rgb(251 236 238 / 0.55);
+  /* Metin, ikon, odak (açık tema, varsayılan) */
+  --c-canvas: var(--frost-white);
+  --c-text: var(--deep-cool-gray);
+  --c-text-muted: var(--steel-blue-gray);
+  --c-arrow: var(--steel-blue-gray);
+  --c-icon: var(--steel-blue-gray);
+  --c-toggle-icon: var(--deep-cool-gray);
+  --c-decor: var(--slate-gray);
+  --c-focus: var(--deep-cool-gray);
+  --c-scrim: color-mix(in srgb, var(--frost-white) 78%, transparent);
+  --c-scrim-strong: color-mix(in srgb, var(--frost-white) 97%, transparent);
+  --c-selection: color-mix(in srgb, var(--sky-core) 28%, transparent);
 
-  /* Cam: degrade dolgu + kenar ışığı + speküler parlama + alt bevel */
-  --g-fill-top: rgb(255 250 250 / 0.56);
-  --g-fill-bottom: rgb(255 238 241 / 0.24);
-  --g-fill-solid: rgb(250 238 240 / 0.94);
-  --g-rim-hi: rgb(255 255 255 / 0.95);
-  --g-rim-lo: rgb(255 255 255 / 0.3);
-  --g-spec: rgb(255 255 255 / 0.6);
-  --g-bevel: rgb(120 30 50 / 0.16);
-  --g-hover: rgb(255 255 255 / 0.32);
-  --g-glare: rgb(255 255 255 / 0.55);
-  --c-shadow: rgb(80 20 35 / 0.08);
-  --c-shadow-strong: rgb(80 20 35 / 0.22);
+  /* Cam: yarı saydam Pure White + Ice/Soft Blue iç yansıma + Silver Gray sınır */
+  --g-fill-top: color-mix(in srgb, var(--pure-white) 50%, transparent);
+  --g-fill-bottom: color-mix(in srgb, var(--pure-white) 18%, transparent);
+  --g-fill-solid: color-mix(in srgb, var(--frost-white) 94%, transparent);
+  --g-border: color-mix(in srgb, var(--silver-gray) 75%, transparent);
+  --g-rim-hi: var(--pure-white);
+  --g-rim-lo: color-mix(in srgb, var(--pure-white) 35%, transparent);
+  --g-reflect-ice: color-mix(in srgb, var(--ice-blue) 55%, transparent);
+  --g-reflect-soft: color-mix(in srgb, var(--soft-blue) 22%, transparent);
+  --g-spec: color-mix(in srgb, var(--pure-white) 65%, transparent);
+  --g-bevel: color-mix(in srgb, var(--deep-cool-gray) 14%, transparent);
+  --g-hover: color-mix(in srgb, var(--pure-white) 16%, transparent);
+  --g-edge-glow: color-mix(in srgb, var(--ice-blue) 75%, transparent);
+  --g-glare: color-mix(in srgb, var(--pure-white) 60%, transparent);
+  --g-glare-tint: color-mix(in srgb, var(--ice-blue) 40%, transparent);
+  --c-shadow: color-mix(in srgb, var(--deep-cool-gray) 8%, transparent);
+  --c-shadow-strong: color-mix(in srgb, var(--deep-cool-gray) 18%, transparent);
 
-  /* Vurgulu (iletişim) cam: pembe */
-  --a-fill-top: rgb(242 204 212 / 0.78);
-  --a-fill-bottom: rgb(216 146 163 / 0.5);
-  --a-rim-hi: rgb(255 242 245 / 1);
-  --a-rim-lo: rgb(205 115 136 / 0.5);
-  --a-glow: rgb(138 15 43 / 0.35);
-  --c-accent-ink: #710110;
-  --c-accent-icon: #74081c;
+  /* İletişim kartı: biraz daha mavi cam; üzerinde Deep Cool Gray metin */
+  --a-fill-top: color-mix(in srgb, var(--soft-blue) 46%, transparent);
+  --a-fill-bottom: color-mix(in srgb, var(--sky-core) 30%, transparent);
+  --a-rim-hi: var(--pure-white);
+  --a-rim-lo: color-mix(in srgb, var(--soft-blue) 60%, transparent);
+  --a-glow: color-mix(in srgb, var(--sky-core) 40%, transparent);
+  --c-accent-ink: var(--deep-cool-gray);
+  --c-accent-icon: var(--deep-cool-gray);
 
   /* Avatar */
-  --c-avatar-shine: rgb(255 255 255 / 0.85);
-  --c-avatar-tint: rgb(160 30 60 / 0.28);
-  --c-avatar-ink: #200b0b;
+  --c-avatar-shine: color-mix(in srgb, var(--pure-white) 88%, transparent);
+  --c-avatar-tint: color-mix(in srgb, var(--soft-blue) 45%, transparent);
+  --c-avatar-ink: var(--deep-cool-gray);
 
   /* "Yakında" etiketi (adres girilmemiş kart) */
-  --c-chip: rgb(255 255 255 / 0.55);
-  --c-chip-rim: rgb(255 255 255 / 0.9);
-  --c-chip-text: #4a3236;
+  --c-chip: color-mix(in srgb, var(--pure-white) 55%, transparent);
+  --c-chip-rim: color-mix(in srgb, var(--pure-white) 90%, transparent);
+  --c-chip-text: var(--steel-blue-gray);
 
-  --glass-blur: 16px;
-  --glass-saturate: 115%;
+  --glass-blur: 24px;
+  --glass-saturate: 130%;
   --glass-brightness: 1;
   --rim-width: 1.5px;
 
   /* Ölçüler (mobil) */
   --column-max: 440px;
   --card-height: 68px;
-  --card-radius: 22px;
+  --card-radius: 24px;
   --card-gap: 12px;
   --card-pad-start: 20px;
   --card-pad-end: 18px;
-  --card-icon-box: 34px;
-  --card-icon-gap: 22px;
-  --card-label-size: 18px;
-  --card-arrow-size: 28px;
+  --card-icon-box: 32px;
+  --card-icon-gap: 20px;
+  --card-label-size: 17px;
+  --card-arrow-size: 26px;
   --toggle-width: 70px;
   --toggle-height: 44px;
-  --avatar-size: clamp(112px, 32vw, 184px);
+  --avatar-size: clamp(112px, 33vw, 184px);
 
   /* Dikey ritim (mobil) */
   --sp-page-top: 16px;
@@ -79,12 +95,17 @@
   --sp-toggle-avatar: 18px;
   --sp-avatar-title: 12px;
   --sp-title-tagline: 4px;
-  --sp-tagline-links: 22px;
+  --sp-tagline-links: 20px;
   --sp-links-contact: 14px;
   --sp-contact-location: 22px;
 
-  --shadow-card: 0 2px 6px -2px var(--c-shadow), 0 12px 32px -12px var(--c-shadow-strong);
-  --shadow-card-hover: 0 4px 10px -2px var(--c-shadow), 0 22px 44px -14px var(--c-shadow-strong);
+  --shadow-card:
+    0 0 0 1px var(--g-border),
+    0 2px 6px -2px var(--c-shadow),
+    0 14px 34px -12px var(--c-shadow-strong);
+  --shadow-card-hover:
+    0 4px 10px -2px var(--c-shadow),
+    0 22px 44px -14px var(--c-shadow-strong);
 
   /* Hareket */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -96,70 +117,77 @@
   color-scheme: light;
 }
 
+/* Koyu tema: Deep Cool Gray zemin, açık metin, aynı açık mavi vurgular */
 :root[data-theme="dark"] {
-  --c-canvas: #12050a;
-  --c-text: #f9eef0;
-  --c-text-muted: #d5bfc4;
-  --c-arrow: #e2ccd1;
-  --c-icon: #ffb3c1;
-  --c-icon-github: #f9eef0;
-  --c-icon-linkedin: #d9566f;
-  --c-toggle-icon: #ffd6de;
-  --c-focus: #ff8fa6;
-  --c-scrim: rgb(20 6 12 / 0.55);
+  --c-canvas: var(--deep-cool-gray);
+  --c-text: var(--frost-white);
+  --c-text-muted: var(--silver-gray);
+  --c-arrow: var(--silver-gray);
+  --c-icon: var(--soft-blue);
+  --c-toggle-icon: var(--ice-blue);
+  --c-decor: var(--slate-gray);
+  --c-focus: var(--sky-core);
+  --c-scrim: color-mix(in srgb, var(--deep-cool-gray) 90%, transparent);
+  --c-scrim-strong: color-mix(in srgb, var(--deep-cool-gray) 85%, transparent);
+  --c-selection: color-mix(in srgb, var(--sky-core) 40%, transparent);
 
-  --g-fill-top: rgb(112 34 56 / 0.36);
-  --g-fill-bottom: rgb(30 8 16 / 0.34);
-  --g-fill-solid: rgb(36 12 20 / 0.94);
-  --g-rim-hi: rgb(255 205 215 / 0.48);
-  --g-rim-lo: rgb(255 205 215 / 0.08);
-  --g-spec: rgb(255 200 212 / 0.14);
-  --g-bevel: rgb(0 0 0 / 0.3);
-  --g-hover: rgb(255 255 255 / 0.07);
-  --g-glare: rgb(255 190 205 / 0.2);
-  --c-shadow: rgb(10 0 4 / 0.3);
-  --c-shadow-strong: rgb(10 0 4 / 0.55);
+  /* Koyu cam Deep Cool Gray ile tonlanır; arkadaki mavi açık yazıyı yıkamaz */
+  --g-fill-top: color-mix(in srgb, var(--deep-cool-gray) 52%, transparent);
+  --g-fill-bottom: color-mix(in srgb, var(--deep-cool-gray) 38%, transparent);
+  --g-fill-solid: color-mix(in srgb, var(--deep-cool-gray) 92%, var(--pure-white));
+  --g-border: color-mix(in srgb, var(--silver-gray) 24%, transparent);
+  --g-rim-hi: color-mix(in srgb, var(--pure-white) 45%, transparent);
+  --g-rim-lo: color-mix(in srgb, var(--pure-white) 8%, transparent);
+  --g-reflect-ice: color-mix(in srgb, var(--ice-blue) 10%, transparent);
+  --g-reflect-soft: color-mix(in srgb, var(--soft-blue) 12%, transparent);
+  --g-spec: color-mix(in srgb, var(--ice-blue) 14%, transparent);
+  --g-bevel: color-mix(in srgb, var(--deep-cool-gray), black 55%);
+  --g-hover: color-mix(in srgb, var(--pure-white) 6%, transparent);
+  --g-edge-glow: color-mix(in srgb, var(--sky-core) 35%, transparent);
+  --g-glare: color-mix(in srgb, var(--ice-blue) 18%, transparent);
+  --g-glare-tint: color-mix(in srgb, var(--soft-blue) 10%, transparent);
+  --c-shadow: color-mix(in srgb, color-mix(in srgb, var(--deep-cool-gray), black 65%) 35%, transparent);
+  --c-shadow-strong: color-mix(in srgb, color-mix(in srgb, var(--deep-cool-gray), black 65%) 60%, transparent);
 
-  --a-fill-top: rgb(170 34 66 / 0.42);
-  --a-fill-bottom: rgb(110 15 40 / 0.2);
-  --a-rim-hi: rgb(255 175 195 / 0.72);
-  --a-rim-lo: rgb(225 115 145 / 0.18);
-  --a-glow: rgb(180 20 60 / 0.45);
-  --c-accent-ink: #ffd3dc;
-  --c-accent-icon: #ff9fb4;
+  --a-fill-top: color-mix(in srgb, var(--sky-core) 34%, transparent);
+  --a-fill-bottom: color-mix(in srgb, var(--sky-core) 14%, transparent);
+  --a-rim-hi: color-mix(in srgb, var(--soft-blue) 70%, transparent);
+  --a-rim-lo: color-mix(in srgb, var(--soft-blue) 18%, transparent);
+  --a-glow: color-mix(in srgb, var(--sky-core) 40%, transparent);
+  --c-accent-ink: var(--frost-white);
+  --c-accent-icon: var(--ice-blue);
 
-  --c-avatar-shine: rgb(255 210 220 / 0.18);
-  --c-avatar-tint: rgb(170 25 60 / 0.5);
-  --c-avatar-ink: #fff0f3;
+  --c-avatar-shine: color-mix(in srgb, var(--ice-blue) 18%, transparent);
+  --c-avatar-tint: color-mix(in srgb, var(--sky-core) 40%, transparent);
+  --c-avatar-ink: var(--frost-white);
 
-  --c-chip: rgb(255 255 255 / 0.08);
-  --c-chip-rim: rgb(255 210 220 / 0.2);
-  --c-chip-text: #f5dfe4;
+  --c-chip: color-mix(in srgb, var(--pure-white) 8%, transparent);
+  --c-chip-rim: color-mix(in srgb, var(--silver-gray) 25%, transparent);
+  --c-chip-text: var(--frost-white);
 
-  /* Koyu camda arkadaki parlak bordo biraz kısılır ki açık yazı okunur kalsın */
-  --glass-saturate: 140%;
-  --glass-brightness: 0.72;
+  /* Koyu camda arkadaki mavi biraz kısılır ki açık yazı okunur kalsın */
+  --glass-saturate: 115%;
+  --glass-brightness: 0.8;
 
   color-scheme: dark;
 }
 
 /*
  * Ölçüler ve ritim (geniş ekran)
- * Kartlar referanstaki gibi büyük (en fazla 78 px, etiket 21 px). Sayfanın
- * ekrana sığması için dikey boşluklar ve avatar pencere yüksekliğine göre esner.
+ * ~440 px sütun, 68–78 px kart. Sayfanın ekrana sığması için dikey boşluklar
+ * ve avatar pencere yüksekliğine göre esner; kısa ekranda doğal kaydırma kalır.
  */
 @media (min-width: 480px) {
   :root {
-    --column-max: 480px;
-    --card-height: clamp(62px, 8.4vh, 78px);
+    --card-height: clamp(68px, 8.4vh, 78px);
     --card-radius: 26px;
     --card-gap: clamp(8px, 1.2vh, 12px);
-    --card-pad-start: 28px;
-    --card-pad-end: 26px;
-    --card-icon-box: 40px;
-    --card-icon-gap: 32px;
-    --card-label-size: 21px;
-    --card-arrow-size: 32px;
+    --card-pad-start: 24px;
+    --card-pad-end: 22px;
+    --card-icon-box: 36px;
+    --card-icon-gap: 28px;
+    --card-label-size: 20px;
+    --card-arrow-size: 28px;
     --avatar-size: clamp(88px, 12.5vh, 172px);
 
     --sp-page-top: clamp(12px, 2.4vh, 40px);
@@ -167,18 +195,18 @@
     --sp-toggle-avatar: clamp(8px, 1.8vh, 30px);
     --sp-avatar-title: 10px;
     --sp-title-tagline: 4px;
-    --sp-tagline-links: clamp(12px, 2.4vh, 26px);
+    --sp-tagline-links: clamp(12px, 2.1vh, 28px);
     --sp-links-contact: clamp(8px, 1.8vh, 20px);
-    --sp-contact-location: clamp(12px, 2.6vh, 40px);
+    --sp-contact-location: clamp(12px, 2.2vh, 40px);
   }
 }
 
 @media (min-width: 480px) and (min-height: 1000px) {
-  :root { --avatar-size: clamp(88px, 17.5vh, 184px); }
+  :root { --avatar-size: clamp(96px, 17.5vh, 184px); }
 }
 
 @theme inline {
-  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-inter), "Inter", sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -204,7 +232,7 @@ body {
 }
 
 ::selection {
-  background: rgb(138 15 43 / 0.2);
+  background: var(--c-selection);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -233,7 +261,7 @@ body {
 
 /*
  * Dikey çizim (4:5): dar telefonda yatayda hafifçe sıkışır ki kenarlardaki
- * bordo kütleler görünsün. Yatay ekranda ayrı yatay çizim "cover" ile oturur.
+ * mavi kıvrımlar görünsün. Yatay ekranda ayrı yatay çizim "cover" ile oturur.
  */
 .scene-img {
   position: absolute;
@@ -250,17 +278,23 @@ body {
  */
 :root[data-scene-ready] .scene-img { will-change: opacity; }
 
-.scene-img--light { background-image: url("/scene/portrait-light.webp"); }
-.scene-img--dark { background-image: url("/scene/portrait-dark.webp"); opacity: 0; }
+.scene-img--back-light { background-image: url("/scene/portrait-light-back.webp"); }
+.scene-img--back-dark { background-image: url("/scene/portrait-dark-back.webp"); opacity: 0; }
+.scene-img--front-light { background-image: url("/scene/portrait-light-front.webp"); }
+.scene-img--front-dark { background-image: url("/scene/portrait-dark-front.webp"); opacity: 0; }
 
 @media (min-aspect-ratio: 1/1) {
   .scene-img { background-size: cover; }
-  .scene-img--light { background-image: url("/scene/landscape-light.webp"); }
-  .scene-img--dark { background-image: url("/scene/landscape-dark.webp"); }
+  .scene-img--back-light { background-image: url("/scene/landscape-light-back.webp"); }
+  .scene-img--back-dark { background-image: url("/scene/landscape-dark-back.webp"); }
+  .scene-img--front-light { background-image: url("/scene/landscape-light-front.webp"); }
+  .scene-img--front-dark { background-image: url("/scene/landscape-dark-front.webp"); }
 }
 
-:root[data-theme="dark"] .scene-img--light { opacity: 0; }
-:root[data-theme="dark"] .scene-img--dark { opacity: 1; }
+:root[data-theme="dark"] .scene-img--back-light,
+:root[data-theme="dark"] .scene-img--front-light { opacity: 0; }
+:root[data-theme="dark"] .scene-img--back-dark,
+:root[data-theme="dark"] .scene-img--front-dark { opacity: 1; }
 
 /* Tema geçişi: eski ve yeni görünüm arasında 350 ms çapraz geçiş */
 ::view-transition-old(root),
@@ -278,7 +312,10 @@ body {
 .glass {
   position: relative;
   isolation: isolate;
-  background-image: linear-gradient(165deg, var(--g-fill-top), var(--g-fill-bottom));
+  background-image:
+    radial-gradient(120% 140% at 0% 0%, var(--g-reflect-ice), transparent 55%),
+    radial-gradient(120% 140% at 100% 100%, var(--g-reflect-soft), transparent 60%),
+    linear-gradient(165deg, var(--g-fill-top), var(--g-fill-bottom));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
     brightness(var(--glass-brightness));
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
@@ -341,6 +378,8 @@ body {
 .page {
   position: relative;
   z-index: 1;
+  /* Dekoratif okunabilirlik alanları dar ekranda yatay taşma yaratmasın */
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -439,11 +478,11 @@ body {
   position: absolute;
   inset: -36px -8px -28px;
   z-index: -1;
-  background: radial-gradient(closest-side, var(--c-scrim) 45%, transparent);
+  background: radial-gradient(closest-side, var(--c-scrim) 68%, transparent);
   pointer-events: none;
 }
 
-/* Cam küre avatar: sol üstte parlama, altta ve sağda bordo kırılma */
+/* Cam küre avatar: sol üstte parlama, altta ve sağda açık mavi kırılma */
 .avatar {
   display: grid;
   place-items: center;
@@ -458,17 +497,34 @@ body {
   box-shadow:
     inset 0 10px 22px -10px var(--c-avatar-shine),
     inset 0 -14px 28px -14px var(--c-avatar-tint),
+    0 0 0 1px var(--g-border),
     0 4px 10px -4px var(--c-shadow),
     0 22px 48px -20px var(--c-shadow-strong);
   --rim-width: 2.5px;
+  /* Fotoğraf cam halkanın içinde durur */
+  padding: calc(var(--avatar-size) * 0.035);
 }
 
-.avatar-initials {
-  font-size: calc(var(--avatar-size) * 0.32);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--c-avatar-ink);
+.avatar-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+/* Fotoğrafın üstünde cam küre parlaması: sol üstte ışık, kenarda iç yansıma */
+.avatar-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(42% 30% at 32% 16%, color-mix(in srgb, var(--pure-white) 55%, transparent), transparent 70%),
+    radial-gradient(60% 40% at 50% 104%, color-mix(in srgb, var(--soft-blue) 35%, transparent), transparent 70%);
+  box-shadow:
+    inset 0 0 0 calc(var(--avatar-size) * 0.035) color-mix(in srgb, var(--pure-white) 18%, transparent),
+    inset 0 2px 6px color-mix(in srgb, var(--pure-white) 70%, transparent),
+    inset 0 -6px 14px color-mix(in srgb, var(--soft-blue) 30%, transparent);
+  pointer-events: none;
 }
 
 .profile-name {
@@ -522,16 +578,17 @@ body {
 
 a.card[href] { cursor: pointer; }
 
-/* Hover katmanları: hepsi ayrı GPU katmanında, yalnızca opacity değişir */
+/* Hover katmanları: hepsi ayrı GPU katmanında, yalnızca opacity değişir (~300 ms) */
 .card-shadow,
-.card-hover {
+.card-hover,
+.card-rim2 {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
   will-change: opacity;
-  transition: opacity 240ms var(--ease-out);
+  transition: opacity 300ms var(--ease-out);
 }
 
 .card-shadow {
@@ -539,34 +596,77 @@ a.card[href] { cursor: pointer; }
   box-shadow: var(--shadow-card-hover);
 }
 
-/* Daha parlak dolgu ve kenar: "kenar ışığı belirginleşir" */
+/* Belirginleşen dış kenar: parlak ince çizgi + dışa doğru yumuşak ışıma.
+   Dolgu neredeyse aynı kalır ki camın şeffaflığı ve metin kontrastı korunsun. */
 .card-hover {
   z-index: -1;
-  background: linear-gradient(165deg, var(--g-hover), transparent 75%);
-  box-shadow: inset 0 0 0 1px var(--g-rim-hi);
+  background: linear-gradient(165deg, var(--g-hover), transparent 60%);
+  box-shadow:
+    inset 0 0 0 1.5px var(--g-rim-hi),
+    0 0 0 1px var(--g-rim-hi),
+    0 0 18px 1px var(--g-edge-glow);
+}
+
+/* İkinci, içteki ince yansıma çizgisi: Liquid Glass'ın çift kenarı */
+.card-rim2 {
+  inset: 3px;
+  z-index: -1;
+  padding: 1px;
+  border-radius: calc(var(--card-radius) - 3px);
+  background: linear-gradient(
+    160deg,
+    var(--g-rim-hi) 0%,
+    transparent 30%,
+    transparent 70%,
+    color-mix(in srgb, var(--ice-blue) 80%, transparent) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
 @media (hover: hover) and (pointer: fine) {
   a.card[href]:hover .card-shadow,
-  a.card[href]:hover .card-hover { opacity: 1; }
+  a.card[href]:hover .card-hover,
+  a.card[href]:hover .card-rim2 { opacity: 1; }
 }
 
 a.card[href]:focus-visible .card-shadow,
-a.card[href]:focus-visible .card-hover { opacity: 1; }
+a.card[href]:focus-visible .card-hover,
+a.card[href]:focus-visible .card-rim2 { opacity: 1; }
 
-/* İmleci yatayda takip eden yansıma: kart yüksekliğinde, kenarlara doğru sönen elips */
+/* Kartın kırılma filtresi tanımı: görünmez, yer kaplamaz */
+.card-lens-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* İmleci iki eksende izleyen yumuşak beyaz / Ice Blue ışık */
+.card-glare-clip {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .card-glare {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
-  width: 220px;
-  height: 100%;
-  background: radial-gradient(closest-side, var(--g-glare), transparent);
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, var(--g-glare), var(--g-glare-tint) 45%, transparent);
   opacity: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
 }
+
+/* Yalnızca etkin kartta ayrı katmana alınır */
+.card[data-active] .card-glare { will-change: transform, opacity; }
 
 .card-icon {
   display: grid;
@@ -582,12 +682,11 @@ a.card[href]:focus-visible .card-hover { opacity: 1; }
   height: calc(var(--card-icon-box) * var(--icon-scale, 0.9));
 }
 
-/* İkonlar referanstaki gibi tek renk bordo */
+/* Sosyal ikonlar palete uyumlu tek renk (Steel Blue Gray) */
 .card-icon[data-icon="behance"] { --icon-scale: 1.02; }
-.card-icon[data-icon="github"] { --icon-scale: 0.96; color: var(--c-icon-github); }
+.card-icon[data-icon="github"] { --icon-scale: 0.96; }
 .card-icon[data-icon="linkedin"],
 .card-icon[data-icon="instagram"] { --icon-scale: 0.88; }
-.card-icon[data-icon="linkedin"] { color: var(--c-icon-linkedin); }
 .card-icon[data-icon="mail"] { color: var(--c-accent-icon); }
 
 .card-label {
@@ -633,17 +732,20 @@ a.card[href]:focus-visible .card-hover { opacity: 1; }
   box-shadow: inset 0 0 0 1px var(--c-chip-rim);
 }
 
-/* Vurgulu iletişim kartı: pembe tonlu cam */
+/* Vurgulu iletişim kartı: biraz daha mavi cam, saydamlığını korur */
 .card--accent {
   color: var(--c-accent-ink);
-  background-image: linear-gradient(165deg, var(--a-fill-top), var(--a-fill-bottom));
+  background-image:
+    radial-gradient(120% 140% at 0% 0%, var(--g-reflect-ice), transparent 55%),
+    linear-gradient(165deg, var(--a-fill-top), var(--a-fill-bottom));
   box-shadow:
+    0 0 0 1px var(--a-rim-lo),
     0 2px 6px -2px var(--c-shadow),
     0 16px 40px -12px var(--a-glow),
     0 0 36px -8px var(--a-glow);
   --g-rim-hi: var(--a-rim-hi);
   --g-rim-lo: var(--a-rim-lo);
-  --g-glare: rgb(255 255 255 / 0.4);
+  --g-glare: color-mix(in srgb, var(--pure-white) 40%, transparent);
   --c-chip-text: var(--c-accent-ink);
 }
 
@@ -669,8 +771,27 @@ a.card[href]:focus-visible .card-hover { opacity: 1; }
   color: var(--c-text-muted);
 }
 
-/* Dolgulu pin: gövde metin renginde, iç halka zemin renginde */
-.location-pin { fill: currentColor; }
+/* Küçük metnin arkasında yumuşak okunabilirlik alanı (kıvrımların üstünde de okunur) */
+.scrimmed {
+  position: relative;
+}
+
+.scrimmed::before {
+  content: "";
+  position: absolute;
+  inset: -18px -130px;
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    var(--c-scrim-strong) 52%,
+    color-mix(in srgb, var(--c-scrim-strong) 45%, transparent) 76%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Dolgulu pin (dekoratif, Slate Gray); iç halka zemin renginde */
+.location-pin { color: var(--c-decor); fill: currentColor; }
 .location-pin circle { fill: var(--c-canvas); stroke: none; }
 
 /* ─────────────────────────────────────────────────────────────
