@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { profile } from "@/config/profile";
 import { THEME_COLORS, themeInitScript } from "@/lib/theme";
 import "./globals.css";
@@ -38,7 +39,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{".theme-toggle{visibility:hidden}"}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Vercel Web Analytics: çerezsiz sayfa görüntüleme ölçümü */}
+        <Analytics />
+      </body>
     </html>
   );
 }
